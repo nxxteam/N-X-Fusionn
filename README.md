@@ -1,1 +1,1366 @@
-# N-X-Fusionn
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NΛX Fusion | Premium Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      /* Premium Dark Dashboard Palette */
+      --bg-base: #050505;
+      --bg-surface: #0a0a0c;
+      --bg-panel: rgba(18, 18, 22, 0.65);
+      --bg-panel-solid: #121216;
+      --bg-elevated: rgba(26, 26, 32, 0.8);
+      
+      --border-light: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(255, 255, 255, 0.15);
+      --border-bright: rgba(255, 255, 255, 0.3);
+      
+      --text-main: #ffffff;
+      --text-muted: #8b8b99;
+      --text-subtle: #565666;
+      
+      --accent-default: #38bdf8;
+      
+      /* Refined Neon Category Colors */
+      --fernet: #f59e0b; 
+      --vodka: #38bdf8; 
+      --gin: #10b981; 
+      --ron: #f43f5e; 
+      --whisky: #eab308;
+      --tequila: #fde047; 
+      --aperitivos: #ff5722; 
+      --espumantes: #d946ef; 
+      --vermut: #8b5cf6;
+      --licores: #a855f7; 
+      --cervezas: #facc15; 
+      --sidras: #4ade80; 
+      --cocteles: #fb923c; 
+      --shots: #ef4444;
+
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+      --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.7);
+      --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+      --shadow-glow: 0 0 20px rgba(var(--accent-rgb), 0.3);
+
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+      --radius-xl: 24px;
+      
+      --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-smooth: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+    html { scroll-behavior: smooth; }
+    
+    body {
+      min-height: 100vh;
+      color: var(--text-main);
+      background-color: var(--bg-base);
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Ambient Background Glow */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -20%; left: -10%; width: 120%; height: 120%;
+      background: radial-gradient(circle at 50% 0%, rgba(26, 26, 38, 0.5) 0%, transparent 60%),
+                  radial-gradient(circle at 100% 100%, rgba(18, 18, 22, 0.8) 0%, transparent 50%);
+      z-index: -2;
+      pointer-events: none;
+    }
+
+    /* Subtle Grid Pattern */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+      background-size: 32px 32px;
+      z-index: -1;
+      pointer-events: none;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+      -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+    }
+
+    /* Typography & Headers */
+    header {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 60px 24px 40px;
+      text-align: center;
+      position: relative;
+      animation: fadeInDown 0.8s var(--transition-smooth) both;
+    }
+
+    .logo-container { margin-bottom: 32px; }
+    
+    .logo h1 {
+      font-size: clamp(3rem, 6vw, 5rem);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      font-weight: 900;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #ffffff 0%, #a1a1aa 50%, #52525b 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo h1 span {
+      font-weight: 300;
+      color: var(--text-muted);
+      -webkit-text-fill-color: var(--text-muted);
+    }
+
+    .creator-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-light);
+      padding: 6px 16px;
+      border-radius: 100px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      backdrop-filter: blur(10px);
+    }
+    .creator-badge i { color: var(--accent-default); }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      font-weight: 400;
+      line-height: 1.6;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Search & Filters */
+    .controls-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 48px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .search-wrap {
+      position: relative;
+      width: min(100%, 640px);
+      group: search;
+    }
+
+    .search-wrap i {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      transition: var(--transition-fast);
+    }
+
+    .search-wrap:focus-within i { color: var(--text-main); }
+
+    .search {
+      width: 100%;
+      padding: 18px 24px 18px 52px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-light);
+      background: rgba(255, 255, 255, 0.02);
+      color: var(--text-main);
+      font-size: 1.05rem;
+      outline: none;
+      box-shadow: var(--shadow-md);
+      backdrop-filter: blur(12px);
+      transition: var(--transition-smooth);
+    }
+
+    .search::placeholder { color: var(--text-subtle); }
+    .search:focus {
+      border-color: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.05);
+      transform: translateY(-2px);
+      box-shadow: 0 15px 30px -10px rgba(0,0,0,0.5), 0 0 0 4px rgba(255,255,255,0.02);
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      max-width: 1000px;
+    }
+
+    .filter {
+      padding: 10px 20px;
+      border-radius: 100px;
+      border: 1px solid var(--border-light);
+      background: rgba(255, 255, 255, 0.02);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      transition: var(--transition-fast);
+      backdrop-filter: blur(8px);
+    }
+
+    .filter:hover {
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.06);
+      border-color: var(--border-hover);
+      transform: translateY(-1px);
+    }
+
+    .filter.active {
+      color: var(--bg-base);
+      background: var(--text-main);
+      border-color: var(--text-main);
+      box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+    }
+
+    /* Grid Layout */
+    main {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+    }
+
+    /* Premium Cards */
+    .card {
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 32px;
+      min-height: 240px;
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-light);
+      background: linear-gradient(145deg, rgba(26, 26, 32, 0.4) 0%, rgba(18, 18, 22, 0.6) 100%);
+      backdrop-filter: blur(16px);
+      box-shadow: var(--shadow-md);
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      isolation: isolate;
+      animation: fadeInUp 0.6s var(--transition-smooth) backwards;
+    }
+
+    /* Animated entry stagger */
+    .card:nth-child(1) { animation-delay: 0.05s; }
+    .card:nth-child(2) { animation-delay: 0.1s; }
+    .card:nth-child(3) { animation-delay: 0.15s; }
+    .card:nth-child(4) { animation-delay: 0.2s; }
+    .card:nth-child(5) { animation-delay: 0.25s; }
+    .card:nth-child(6) { animation-delay: 0.3s; }
+    .card:nth-child(7) { animation-delay: 0.35s; }
+    .card:nth-child(8) { animation-delay: 0.4s; }
+
+    /* Card Top Accent Glow */
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 100%;
+      background: radial-gradient(circle at 50% 0%, var(--accent-color, var(--accent-default)), transparent 70%);
+      opacity: 0.05;
+      transition: var(--transition-smooth);
+      z-index: -1;
+    }
+
+    /* Top Border Line */
+    .card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 2px;
+      background: var(--accent-color, var(--accent-default));
+      opacity: 0.6;
+      transition: var(--transition-smooth);
+    }
+
+    .card:hover {
+      transform: translateY(-6px) scale(1.01);
+      border-color: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 20px 40px -10px rgba(0,0,0,0.8), 0 0 20px rgba(var(--accent-rgb, 255,255,255), 0.1);
+    }
+    
+    .card:hover::before { opacity: 0.12; }
+    .card:hover::after { opacity: 1; box-shadow: 0 0 15px var(--accent-color, var(--accent-default)); }
+
+    .card-header { margin-bottom: 16px; }
+
+    .cat {
+      display: inline-block;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--accent-color, var(--accent-default));
+      font-weight: 800;
+      margin-bottom: 12px;
+      padding: 4px 10px;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      color: #fff;
+    }
+
+    .desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      font-weight: 400;
+    }
+
+    .action {
+      margin-top: 24px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      transition: var(--transition-fast);
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .card:hover .action {
+      color: var(--text-main);
+    }
+    .card:hover .action i {
+      transform: translateX(6px);
+      color: var(--accent-color, var(--accent-default));
+    }
+    .action i { transition: var(--transition-smooth); }
+
+    /* Modal / Overlay */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      padding: 24px;
+    }
+
+    .overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal {
+      width: 100%;
+      max-width: 1140px;
+      max-height: 92vh;
+      overflow-y: auto;
+      position: relative;
+      border-radius: var(--radius-xl);
+      padding: 48px;
+      background: var(--bg-panel-solid);
+      border: 1px solid var(--border-light);
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.05), var(--shadow-lg);
+      transform: scale(0.95) translateY(20px);
+      opacity: 0;
+      transition: var(--transition-smooth);
+    }
+    
+    /* Custom Scrollbar for Modal */
+    .modal::-webkit-scrollbar { width: 8px; }
+    .modal::-webkit-scrollbar-track { background: var(--bg-panel-solid); margin: 20px; border-radius: 10px; }
+    .modal::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 10px; }
+    .modal::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+
+    .overlay.active .modal {
+      transform: scale(1) translateY(0);
+      opacity: 1;
+    }
+
+    .close {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid var(--border-light);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text-muted);
+      font-size: 1.2rem;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: var(--transition-fast);
+      z-index: 10;
+      backdrop-filter: blur(4px);
+    }
+
+    .close:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: rotate(90deg);
+    }
+
+    /* Modal Content */
+    .hero {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .pill {
+      padding: 6px 14px;
+      border-radius: 100px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text-subtle);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    .modal-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: #fff;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    
+    .modal-title i {
+      color: var(--accent-color);
+      text-shadow: 0 0 20px rgba(var(--accent-rgb, 255,255,255), 0.4);
+    }
+
+    .modal-desc {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      line-height: 1.6;
+      max-width: 800px;
+      margin-bottom: 32px;
+    }
+
+    .modal-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      align-items: stretch;
+    }
+
+    @media (max-width: 960px) {
+      .modal-grid { grid-template-columns: 1fr; }
+      .modal { padding: 32px 24px; }
+    }
+
+    .pane {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    /* UI Boxes */
+    .box {
+      padding: 28px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-light);
+      background: rgba(255, 255, 255, 0.015);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .box::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+    }
+
+    .box-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      font-size: 0.85rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-main);
+    }
+    
+    .box-title i { color: var(--accent-color, var(--text-muted)); font-size: 1rem; }
+
+    /* Form Fields */
+    .fields {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .field label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+    }
+
+    .select-wrap { position: relative; }
+    .select-wrap::after {
+      content: '\f107';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+
+    .select, .input {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(0, 0, 0, 0.3);
+      color: #fff;
+      font-size: 0.95rem;
+      font-weight: 500;
+      outline: none;
+      transition: var(--transition-fast);
+      appearance: none;
+      -webkit-appearance: none;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .select:focus, .input:focus {
+      border-color: var(--accent-color, var(--accent-default));
+      background: rgba(0, 0, 0, 0.5);
+      box-shadow: 0 0 0 3px rgba(var(--accent-rgb, 255,255,255), 0.1), inset 0 2px 4px rgba(0,0,0,0.2);
+    }
+    
+    .select option { background: var(--bg-panel-solid); color: #fff; padding: 10px; }
+
+    /* Recipe Sliders */
+    .recipe-list { display: grid; gap: 16px; }
+    
+    .ingredient {
+      display: grid;
+      grid-template-columns: 1fr 80px;
+      grid-template-areas: "info pct" "slider slider";
+      gap: 12px;
+      padding: 20px;
+      border-radius: var(--radius-md);
+      background: rgba(0,0,0,0.2);
+      border: 1px solid rgba(255,255,255,0.05);
+      transition: var(--transition-fast);
+    }
+    
+    .ingredient:hover { border-color: rgba(255,255,255,0.1); background: rgba(0,0,0,0.3); }
+
+    .ing-info { grid-area: info; }
+    .ing-pct { grid-area: pct; text-align: right; display: flex; flex-direction: column; justify-content: center; }
+    .ing-track { grid-area: slider; padding-top: 8px; }
+
+    .ingredient .mini {
+      font-size: 0.7rem;
+      color: var(--text-subtle);
+      margin-bottom: 4px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .ingredient .name { font-size: 1.05rem; font-weight: 700; color: #fff; }
+    .ingredient .pct { font-size: 1.25rem; font-weight: 900; color: var(--accent-color, var(--accent-default)); letter-spacing: -0.02em; }
+
+    /* Custom Modern Sliders */
+    .slider {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 100%;
+      height: 8px;
+      border-radius: 4px;
+      background: rgba(255,255,255,0.08);
+      outline: none;
+      position: relative;
+      /* Background gradient handled in JS for filled track */
+      background-image: linear-gradient(var(--accent-color), var(--accent-color));
+      background-size: var(--fill-pct, 50%) 100%;
+      background-repeat: no-repeat;
+    }
+
+    .slider::-webkit-slider-thumb {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #fff;
+      border: 3px solid var(--bg-panel-solid);
+      cursor: grab;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,0,0,0.1);
+      transition: transform 0.1s;
+    }
+    .slider::-webkit-slider-thumb:active { cursor: grabbing; transform: scale(1.1); }
+    .slider::-moz-range-thumb {
+      width: 20px; height: 20px; border-radius: 50%; background: #fff; border: 3px solid var(--bg-panel-solid); cursor: grab; box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
+
+    /* Report Card */
+    .report {
+      border-left: 4px solid var(--accent-color, var(--accent-default));
+      border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+      padding: 24px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.03) 0%, transparent 100%);
+      border-top: 1px solid rgba(255,255,255,0.03);
+      border-right: 1px solid rgba(255,255,255,0.03);
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+    }
+    
+    .report h4 {
+      font-size: 1rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #fff;
+      display: flex; align-items: center; gap: 8px;
+    }
+    
+    .report p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
+    .report b { color: #fff; font-weight: 700; }
+
+    /* Virtual Glass - Enhanced */
+    .glass-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 24px;
+      min-height: 300px;
+      border-radius: var(--radius-md);
+      background: radial-gradient(circle at center, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0.4) 100%);
+      border: 1px solid inset rgba(0,0,0,0.5);
+      position: relative;
+      box-shadow: inset 0 5px 20px rgba(0,0,0,0.5);
+    }
+    
+    .glass-label {
+      position: absolute;
+      top: 16px; left: 20px;
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-subtle);
+    }
+
+    .glass {
+      width: 120px;
+      height: 180px;
+      border: 4px solid rgba(255,255,255,0.15);
+      border-top: none;
+      border-radius: 0 0 16px 16px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      background: linear-gradient(90deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.02) 100%);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5), inset 0 -5px 15px rgba(0,0,0,0.8);
+    }
+    
+    /* Glass Reflection */
+    .glass::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 10%; width: 20%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+      z-index: 10;
+      pointer-events: none;
+    }
+    /* Glass Rim Glow */
+    .glass::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -4px; right: -4px; height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+      z-index: 10;
+    }
+
+    .layer {
+      width: 100%;
+      transition: height 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.3s ease;
+      position: relative;
+    }
+    
+    #layerMixer {
+      background: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+      backdrop-filter: blur(2px);
+      z-index: 1;
+    }
+    
+    #layerBase {
+      background: var(--accent-color, var(--accent-default));
+      z-index: 2;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.2) inset;
+    }
+    
+    /* Liquid Top Highlight */
+    .layer::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    }
+
+    .ice {
+      position: absolute;
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.1) 100%);
+      border: 1px solid rgba(255,255,255,0.4);
+      border-radius: 6px;
+      transform: rotate(15deg);
+      bottom: 16px;
+      left: 16px;
+      z-index: 3;
+      box-shadow: inset 0 0 10px rgba(255,255,255,0.2);
+      backdrop-filter: blur(2px);
+    }
+    .ice.b { left: 56px; bottom: 36px; transform: rotate(-25deg); width: 36px; height: 36px; }
+    .ice.c { left: 30px; bottom: 70px; transform: rotate(40deg); width: 28px; height: 28px; display: none; }
+    
+    .ice-level-2 .ice.c { display: block; }
+    .ice-level-3 .ice { bottom: 30px; } .ice-level-3 .ice.b { bottom: 60px; } .ice-level-3 .ice.c { bottom: 100px; display: block; }
+    .ice-level-0 .ice { display: none; }
+
+    /* Metrics Bars */
+    .metrics { display: grid; gap: 20px; }
+    
+    .metric { display: grid; gap: 10px; }
+    
+    .metric-top {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    
+    .metric-val { font-size: 0.9rem; color: #fff; font-weight: 900; }
+
+    .bar {
+      height: 8px;
+      border-radius: 4px;
+      background: rgba(0,0,0,0.4);
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .fill {
+      height: 100%;
+      width: 50%;
+      border-radius: 4px;
+      background: var(--accent-color, var(--accent-default));
+      transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+      position: relative;
+      box-shadow: 0 0 10px var(--accent-color);
+    }
+    
+    .fill::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3) 50%, transparent);
+      animation: shimmer 2s infinite linear;
+    }
+
+    /* Level Analysis Card */
+    .level-card {
+      display: grid;
+      gap: 16px;
+      padding: 24px;
+      background: rgba(0,0,0,0.2);
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(255,255,255,0.05);
+      transition: var(--transition-smooth);
+    }
+    
+    .level-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      align-self: flex-start;
+      padding: 8px 16px;
+      border-radius: 100px;
+      border: 1px solid currentColor;
+      background: rgba(255,255,255,0.03);
+      font-size: 0.85rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    
+    .level-text { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; font-weight: 500; }
+    
+    .level-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+    
+    .level-chip {
+      padding: 6px 12px;
+      border-radius: 100px;
+      background: rgba(255,255,255,0.05);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-subtle);
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    /* Auto Tip */
+    .auto-tip {
+      display: flex; gap: 16px; align-items: flex-start;
+      padding: 20px;
+      background: linear-gradient(145deg, rgba(56, 189, 248, 0.05) 0%, transparent 100%);
+      border: 1px solid rgba(56, 189, 248, 0.1);
+      border-radius: var(--radius-md);
+    }
+    .auto-tip i { color: #38bdf8; font-size: 1.2rem; margin-top: 2px; }
+    .auto-tip p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin: 0; }
+
+    /* Keyframes */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    @media (max-width: 760px) {
+      .fields { grid-template-columns: 1fr; gap: 16px; }
+      .ingredient { grid-template-columns: 1fr; grid-template-areas: "info" "pct" "slider"; padding: 16px; }
+      .ing-pct { text-align: left; flex-direction: row; justify-content: flex-start; align-items: baseline; gap: 8px; }
+      header { padding: 40px 20px 20px; }
+      .logo h1 { font-size: 2.2rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo-container">
+      <div class="creator-badge"><i class="fa-solid fa-code"></i> © 2026 NΛX Fusion — Crafted by Nahuel Laguna </div>
+      <div class="logo">
+        <h1>NΛX <span>Fusion</span></h1>
+      </div>
+      <p class="subtitle">Sistema de análisis y desarrollo de mezclas.</p>
+    </div>
+    <div class="controls-wrapper">
+      <div class="search-wrap">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input id="searchBar" class="search" type="text" placeholder="Buscar perfiles, bases, mixers o marcas..." />
+      </div>
+      <div class="filters" id="filterContainer"></div>
+    </div>
+  </header>
+
+  <main>
+    <div class="grid" id="tragosGrid"></div>
+  </main>
+
+  <div class="overlay" id="modalOverlay">
+    <div class="modal" role="dialog" aria-modal="true">
+      <button class="close" id="closeModalBtn"><i class="fa-solid fa-xmark"></i></button>
+      
+      <div id="modalHeaderSection"></div>
+      
+      <div class="modal-grid">
+        <div class="pane">
+          <div class="box">
+            <div class="box-title"><i class="fa-solid fa-sliders"></i> Parámetros de Mezcla</div>
+            <div class="fields">
+              <div class="field">
+                <label for="brandSelect">Base Principal</label>
+                <div class="select-wrap">
+                  <select id="brandSelect" class="select"></select>
+                </div>
+              </div>
+              <div class="field">
+                <label for="mixerSelect">Diluyente / Mixer</label>
+                <div class="select-wrap">
+                  <select id="mixerSelect" class="select"></select>
+                </div>
+              </div>
+            </div>
+            <div class="fields">
+              <div class="field">
+                <label for="volumeInput">Volumen Total (ml)</label>
+                <input id="volumeInput" class="input" type="number" min="50" max="2000" step="10" value="300" />
+              </div>
+              <div class="field">
+                <label for="iceInput">Densidad Térmica (Hielo)</label>
+                <div class="select-wrap">
+                  <select id="iceInput" class="select">
+                    <option value="0">0% - Sin hielo</option>
+                    <option value="1" selected>25% - Roca única / Poco</option>
+                    <option value="2">50% - Estándar</option>
+                    <option value="3">75% - Lleno</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="box">
+            <div class="box-title"><i class="fa-solid fa-flask-vial"></i> Calibración Volumétrica</div>
+            <div id="ingredientSliders" class="recipe-list"></div>
+          </div>
+
+          <div class="report" id="comboReportCard">
+            <h4 id="comboStatusTitle"><i class="fa-solid fa-file-signature"></i> Resumen de Ficha</h4>
+            <p id="comboDescText">Seleccione los parámetros para generar el reporte de ensamblaje.</p>
+          </div>
+        </div>
+
+        <div class="pane">
+          <div class="box">
+            <div class="box-title"><i class="fa-solid fa-cube"></i> Simulación Estructural</div>
+            <div class="glass-wrap" id="glassWrap">
+              <div class="glass-label">Render 2D</div>
+              <div class="glass">
+                <div class="ice"></div>
+                <div class="ice b"></div>
+                <div class="ice c"></div>
+                <div id="layerMixer" class="layer"></div>
+                <div id="layerBase" class="layer"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="box">
+            <div class="box-title"><i class="fa-solid fa-chart-line"></i> Análisis Organoléptico</div>
+            <div class="metrics">
+              <div class="metric">
+                <div class="metric-top"><span>Potencia Alcohólica (ABV est.)</span><span class="metric-val" id="txtFuerza">50%</span></div>
+                <div class="bar"><div class="fill" id="barFuerza"></div></div>
+              </div>
+              <div class="metric">
+                <div class="metric-top"><span>Índice de Dulzor</span><span class="metric-val" id="txtDulzor">50%</span></div>
+                <div class="bar"><div class="fill" id="barDulzor"></div></div>
+              </div>
+              <div class="metric">
+                <div class="metric-top"><span>Frescura / Acidez</span><span class="metric-val" id="txtFrescura">50%</span></div>
+                <div class="bar"><div class="fill" id="barFrescura"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="box">
+            <div class="box-title"><i class="fa-solid fa-gauge-high"></i> Diagnóstico de Intensidad</div>
+            <div class="level-card" id="levelCard">
+              <div class="level-badge" id="levelBadge">🟡 Equilibrado</div>
+              <div class="level-text" id="levelText">Ajuste la distribución porcentual para evaluar la concentración de la base.</div>
+              <div class="level-meta">
+                <span class="level-chip">Aumento mixer = Suaviza perfil</span>
+                <span class="level-chip">Aumento base = Incrementa carácter</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="auto-tip">
+            <i class="fa-solid fa-microchip"></i>
+            <p id="autoTip">El algoritmo evalúa el perfil resultante basándose en la naturaleza de los componentes y su ratio de disolución volumétrica.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Data Structure Maintained
+    const DATA = [
+      {category:'fernet', title:'Fernet', icon:'🥃', accent:'var(--fernet)', desc:'Base de hierbas densa. Ideal estructuración clásica 30/70.', brands:['Branca','1882','Vittone','Ramazzotti','Capri','Búho Negro','Chola'], mixers:['Coca-Cola','Coca Zero','Pepsi','Sprite','Pomelo','Soda','Tónica','Ginger Ale','Naranja','Energética'], ingredients:[{name:'Fernet',type:'base',pct:30,defaultName:'Branca'},{name:'Mixer',type:'mixer',pct:70,defaultName:'Coca-Cola'}]},
+      {category:'vodka', title:'Vodka', icon:'⚡', accent:'var(--vodka)', desc:'Destilado neutro de alta versatilidad. Perfiles puros y saborizados.', brands:['Tradicional','Frambuesa','Sandía','Tamarindo','Mango','Maracuyá','Manzana','Blueberry','Frutilla','Citrus','Melón','Coco','Vainilla','Caramelo','Durazno','Pera','Uva','Açaí','Frutos rojos'], mixers:['Speed','Red Bull','Monster','Sprite','7Up','Coca-Cola','Tónica','Soda','Naranja','Pomelo','Ananá','Arándanos','Limonada'], ingredients:[{name:'Vodka',type:'base',pct:40,defaultName:'Tradicional'},{name:'Mixer',type:'mixer',pct:60,defaultName:'Sprite'}]},
+      {category:'gin', title:'Gin', icon:'🍸', accent:'var(--gin)', desc:'Base botánica compleja (London Dry, Pink, Citrus) para dilución carbonatada.', brands:['London Dry','Pink','Citrus','Orange','Frutos Rojos','Maracuyá','Tropical','Pepino','Floral','Herbal'], mixers:['Tónica','Ginger Ale','Ginger Beer','Sprite','Soda','Pomelo','Naranja','Limón','Frutillas','Pepino'], ingredients:[{name:'Gin',type:'base',pct:30,defaultName:'London Dry'},{name:'Mixer',type:'mixer',pct:70,defaultName:'Tónica'}]},
+      {category:'ron', title:'Ron', icon:'🏴‍☠️', accent:'var(--ron)', desc:'Destilado de caña. Perfiles ligeros y añejos para ensamblaje tropical.', brands:['Blanco','Dorado','Añejo','Especiado','Coco','Banana','Vainilla','Piña','Mango'], mixers:['Coca-Cola','Sprite','Ginger Ale','Ananá','Maracuyá','Naranja','Mojito','Daiquiri','Piña Colada'], ingredients:[{name:'Ron',type:'base',pct:40,defaultName:'Blanco'},{name:'Mixer',type:'mixer',pct:60,defaultName:'Coca-Cola'}]},
+      {category:'whisky', title:'Whisky', icon:'🥃', accent:'var(--whisky)', desc:'Añejos de malta/grano. Notas a madera y humo. Dilución controlada recomendada.', brands:['Scotch','Bourbon','Tennessee','Irish','Rye','Honey','Apple','Fire/Cinnamon'], mixers:['Coca-Cola','Soda','Agua','Hielo','Ginger Ale','Energética'], ingredients:[{name:'Whisky',type:'base',pct:50,defaultName:'Scotch'},{name:'Mixer',type:'mixer',pct:50,defaultName:'Ginger Ale'}]},
+      {category:'tequila', title:'Tequila', icon:'🌵', accent:'var(--tequila)', desc:'Destilado de agave. Impacto directo o dilución cítrica (estilo Margarita).', brands:['Blanco','Joven','Reposado','Añejo','Extra Añejo','Cristalino'], mixers:['Margarita','Sprite','Naranja','Pomelo','Energética','Limón'], ingredients:[{name:'Tequila',type:'base',pct:50,defaultName:'Blanco'},{name:'Mixer',type:'mixer',pct:50,defaultName:'Margarita'}]},
+      {category:'aperitivos', title:'Aperitivos', icon:'🍊', accent:'var(--aperitivos)', desc:'Infusiones herbales/amargas de baja graduación. Base para Spritz y refrescos.', brands:['Campari','Aperol','Cynar','Gancia','Hesperidina'], mixers:['Naranja','Tónica','Soda','Spritz','Limón','Sprite'], ingredients:[{name:'Aperitivo',type:'base',pct:30,defaultName:'Campari'},{name:'Mixer',type:'mixer',pct:70,defaultName:'Naranja'}]},
+      {category:'espumantes', title:'Espumantes', icon:'🍾', accent:'var(--espumantes)', desc:'Vinos carbonatados. Aportan acidez y burbuja. Mezclas ligeras.', brands:['Brut Nature','Extra Brut','Brut','Demi Sec','Dulce','Rosé'], mixers:['Speed','Red Bull','Naranja','Durazno','Frutilla','Maracuyá'], ingredients:[{name:'Espumante',type:'base',pct:50,defaultName:'Extra Brut'},{name:'Mixer',type:'mixer',pct:50,defaultName:'Naranja'}]},
+      {category:'vermut', title:'Vermut', icon:'🍷', accent:'var(--vermut)', desc:'Vino fortificado macerado. Perfiles dulces o secos, ideal con soda o tónica.', brands:['Martini','Cinzano'], mixers:['Soda','Tónica','Sprite','Naranja'], ingredients:[{name:'Vermut',type:'base',pct:50,defaultName:'Rosso'},{name:'Mixer',type:'mixer',pct:50,defaultName:'Soda'}]},
+      {category:'licores', title:'Licores', icon:'🥥', accent:'var(--licores)', desc:'Bases de alta densidad de azúcar. Emulsiones y ensamblajes de postre/shot.', brands:['Malibú','Kahlúa','Sheridan\'s','Baileys','Cointreau','Triple Sec','Jägermeister'], mixers:['Leche','Café','Soda','Naranja','Cola','Hielo'], ingredients:[{name:'Licor',type:'base',pct:35,defaultName:'Baileys'},{name:'Mixer',type:'mixer',pct:65,defaultName:'Café'}]},
+      {category:'cervezas', title:'Cervezas', icon:'🍺', accent:'var(--cervezas)', desc:'Fermentación de cereales. Consumo habitualmente directo. Perfiles variados.', brands:['Rubia','Roja','Negra','IPA','APA','NEIPA','Lager','Pilsner','Porter','Stout','Honey','Scottish','Bock','Weissbier','Belgian Blonde','Belgian Dubbel','Belgian Tripel'], mixers:['Limonada','Naranja','Soda','Jugo de pomelo','Clara', 'Sin mixer'], ingredients:[{name:'Cerveza',type:'base',pct:100,defaultName:'IPA'}]},
+      {category:'sidras', title:'Sidras', icon:'🍏', accent:'var(--sidras)', desc:'Fermentado de fruta. Carbonatación natural. Servido preferentemente frío puro.', brands:['Manzana','Pera','Frutos Rojos','Durazno','Tropical'], mixers:['Sin mixer','Hielo','Naranja','Soda'], ingredients:[{name:'Sidra',type:'base',pct:100,defaultName:'Manzana'}]},
+      {category:'cocteles', title:'Cócteles Base', icon:'🍹', accent:'var(--cocteles)', desc:'Estructuras de coctelería clásica predefinidas para ajuste fino.', brands:['Mojito','Piña Colada','Cuba Libre','Margarita','Negroni','Old Fashioned','Manhattan','Martini','Cosmopolitan','Caipiriña','Caipiroska','Sex on the Beach','Tequila Sunrise','Long Island Iced Tea'], mixers:['Receta clásica','Versión libre','Low alcohol','Más dulce','Más cítrico'], ingredients:[{name:'Cóctel',type:'base',pct:100,defaultName:'Mojito'}]},
+      {category:'shots', title:'Shots Rápidos', icon:'🔥', accent:'var(--shots)', desc:'Formatos de volumen reducido (30-60ml). Alta concentración, sin disolución.', brands:['Tequila + limón + sal','Jäger Shot','Vodka Shot','Fernet Shot','Kamikaze','B-52','Blow Job','Lemon Drop','Fireball Shot'], mixers:['Shot puro','Limón','Sal','Café','Crema','Triple sec'], ingredients:[{name:'Shot',type:'base',pct:100,defaultName:'Tequila + limón + sal'}]}
+    ];
+
+    const CATEGORY_LABELS = {
+      todos:'Global', fernet:'Fernet', vodka:'Vodka', gin:'Gin', ron:'Ron', whisky:'Whisky', tequila:'Tequila', aperitivos:'Aperitivos', espumantes:'Espumantes', vermut:'Vermut', licores:'Licores', cervezas:'Cervezas', sidras:'Sidras', cocteles:'Cócteles', shots:'Shots'
+    };
+
+    // DOM Elements Cache
+    const els = {
+      grid: document.getElementById('tragosGrid'),
+      filters: document.getElementById('filterContainer'),
+      search: document.getElementById('searchBar'),
+      overlay: document.getElementById('modalOverlay'),
+      close: document.getElementById('closeModalBtn'),
+      header: document.getElementById('modalHeaderSection'),
+      brandSelect: document.getElementById('brandSelect'),
+      mixerSelect: document.getElementById('mixerSelect'),
+      volumeInput: document.getElementById('volumeInput'),
+      iceInput: document.getElementById('iceInput'),
+      ingredientSliders: document.getElementById('ingredientSliders'),
+      comboStatusTitle: document.getElementById('comboStatusTitle'),
+      comboDescText: document.getElementById('comboDescText'),
+      glassWrap: document.getElementById('glassWrap'),
+      layerBase: document.getElementById('layerBase'),
+      layerMixer: document.getElementById('layerMixer'),
+      txtFuerza: document.getElementById('txtFuerza'),
+      txtDulzor: document.getElementById('txtDulzor'),
+      txtFrescura: document.getElementById('txtFrescura'),
+      barFuerza: document.getElementById('barFuerza'),
+      barDulzor: document.getElementById('barDulzor'),
+      barFrescura: document.getElementById('barFrescura'),
+      levelCard: document.getElementById('levelCard'),
+      levelBadge: document.getElementById('levelBadge'),
+      levelText: document.getElementById('levelText'),
+      autoTip: document.getElementById('autoTip')
+    };
+
+    let currentCategory = 'todos';
+    let currentItem = null;
+    let currentRecipe = [];
+
+    // Initialize UI
+    function init() {
+      renderFilters();
+      renderGrid();
+      setupEventListeners();
+    }
+
+    function setupEventListeners() {
+      els.search.addEventListener('input', renderGrid);
+      els.close.addEventListener('click', closeModal);
+      els.overlay.addEventListener('click', e => { if (e.target === els.overlay) closeModal(); });
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+      [els.brandSelect, els.mixerSelect, els.volumeInput, els.iceInput].forEach(el => {
+        el.addEventListener('change', () => {
+          if (!currentItem) return;
+          updateReport(currentItem, currentRecipe);
+          updateVisuals(currentItem, currentRecipe); // For ice changes
+        });
+      });
+    }
+
+    function renderFilters() {
+      const keys = ['todos', ...DATA.map(x => x.category)];
+      els.filters.innerHTML = keys.map(k => `
+        <button class="filter ${k==='todos' ? 'active' : ''}" data-cat="${k}">
+          ${CATEGORY_LABELS[k] || k}
+        </button>
+      `).join('');
+      
+      els.filters.querySelectorAll('button').forEach(btn => {
+        btn.addEventListener('click', () => {
+          currentCategory = btn.dataset.cat;
+          els.filters.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          renderGrid();
+        });
+      });
+    }
+
+    function matches(item, q) {
+      const text = [item.title, item.category, item.desc, ...(item.brands||[]), ...(item.mixers||[])].join(' ').toLowerCase();
+      return text.includes(q.toLowerCase());
+    }
+
+    function renderGrid() {
+      const q = els.search.value.trim();
+      const list = DATA.filter(item => (currentCategory==='todos' || item.category === currentCategory) && (!q || matches(item, q)));
+      
+      if (list.length === 0) {
+        els.grid.innerHTML = `<div class="card" style="grid-column:1/-1; background:var(--bg-panel); border-style:dashed; text-align:center;"><div class="title" style="margin-bottom:8px">Sin resultados</div><div class="desc">Ajuste los parámetros de búsqueda.</div></div>`;
+        return;
+      }
+
+      els.grid.innerHTML = list.map(item => `
+        <article class="card" data-cat="${item.category}" data-title="${item.title}" style="--accent-color:${item.accent}">
+          <div>
+            <div class="card-header">
+              <div class="cat">${item.category}</div>
+              <div class="title">${item.icon} ${item.title}</div>
+            </div>
+            <div class="desc">${item.desc}</div>
+          </div>
+          <div class="action">
+            <span>Abrir Configuración</span><i class="fa-solid fa-arrow-right-long"></i>
+          </div>
+        </article>
+      `).join('');
+
+      els.grid.querySelectorAll('.card').forEach(card => {
+        card.addEventListener('click', () => {
+          const item = DATA.find(d => d.title === card.dataset.title);
+          openModal(item);
+        });
+      });
+    }
+
+    function normalizeRecipe(recipe) {
+      const total = recipe.reduce((s, x) => s + x.pct, 0) || 1;
+      return recipe.map(x => ({...x, pct: +(x.pct * 100 / total).toFixed(1)}));
+    }
+
+    function ensureTwoParts(item) {
+      if (item.ingredients && item.ingredients.length >= 2) return item.ingredients.map(x => ({...x}));
+      if (item.ingredients && item.ingredients.length === 1) return [{...item.ingredients[0]}, {name:'Diluyente', type:'mixer', pct:0, defaultName:item.mixers?.[0] || 'N/A'}];
+      return [{name:'Base', type:'base', pct:50, defaultName:item.brands?.[0]}, {name:'Mixer', type:'mixer', pct:50, defaultName:item.mixers?.[0]}];
+    }
+
+    function openModal(item) {
+      currentItem = item;
+      currentRecipe = ensureTwoParts(item);
+      
+      // Update CSS Variables for Accent Color globally in modal
+      els.overlay.style.setProperty('--accent-color', item.accent);
+      
+      els.overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+
+      els.header.innerHTML = `
+        <div class="hero">
+          <span class="pill" style="border-color:${item.accent}; color:${item.accent}"><i class="fa-solid fa-tag"></i> ${item.category}</span>
+          <span class="pill"><i class="fa-solid fa-bottle-droplet"></i> ${item.brands?.length || 0} Bases</span>
+          <span class="pill"><i class="fa-solid fa-glass-water"></i> ${item.mixers?.length || 0} Mixers</span>
+        </div>
+        <div class="modal-title">${item.icon} ${item.title}</div>
+        <p class="modal-desc">${item.desc}</p>
+      `;
+
+      els.brandSelect.innerHTML = (item.brands || []).map(v => `<option value="${v}">${v}</option>`).join('') || '<option>N/A</option>';
+      els.mixerSelect.innerHTML = (item.mixers || []).map(v => `<option value="${v}">${v}</option>`).join('') || '<option>N/A</option>';
+
+      // Set defaults based on recipe config
+      const firstBrand = item.brands?.includes(currentRecipe[0]?.defaultName) ? currentRecipe[0].defaultName : item.brands?.[0];
+      const firstMixer = item.mixers?.includes(currentRecipe[1]?.defaultName) ? currentRecipe[1].defaultName : item.mixers?.[0];
+      
+      els.brandSelect.value = firstBrand || els.brandSelect.options[0].value;
+      els.mixerSelect.value = firstMixer || els.mixerSelect.options[0].value;
+      
+      // Smart Volume Defaults
+      els.volumeInput.value = item.category === 'shots' ? 60 : (item.category === 'cervezas' || item.category === 'sidras' ? 473 : 300);
+      els.iceInput.value = item.category === 'shots' || item.category === 'cervezas' || item.category === 'espumantes' || item.category === 'sidras' ? 0 : 2;
+
+      renderIngredientSliders(item);
+      updateVisuals(item, currentRecipe);
+      updateReport(item, currentRecipe);
+    }
+
+    function renderIngredientSliders(item) {
+      const recipe = currentRecipe;
+      els.ingredientSliders.innerHTML = recipe.map((ing, idx) => `
+        <div class="ingredient">
+          <div class="ing-info">
+            <div class="mini">Componente ${idx + 1}</div>
+            <div class="name">${ing.name}</div>
+          </div>
+          <div class="ing-pct">
+            <div class="pct" id="pctVal-${idx}">${ing.pct.toFixed(1)}%</div>
+          </div>
+          <div class="ing-track">
+            <input class="slider ing-slider" type="range" min="0" max="100" step="1" value="${ing.pct}" data-idx="${idx}" style="--fill-pct: ${ing.pct}%" />
+          </div>
+        </div>
+      `).join('');
+
+      els.ingredientSliders.querySelectorAll('.ing-slider').forEach(sl => {
+        sl.addEventListener('input', (e) => {
+          const idx = +sl.dataset.idx;
+          const next = currentRecipe.map(x => ({...x}));
+          next[idx].pct = +sl.value;
+          currentRecipe = normalizeRecipe(next);
+          syncSliders();
+          updateVisuals(item, currentRecipe);
+          updateReport(item, currentRecipe);
+        });
+      });
+    }
+
+    function syncSliders() {
+      currentRecipe.forEach((ing, idx) => {
+        const pctEl = document.getElementById(`pctVal-${idx}`);
+        const slider = els.ingredientSliders.querySelector(`.ing-slider[data-idx="${idx}"]`);
+        if (pctEl) pctEl.textContent = `${ing.pct.toFixed(1)}%`;
+        if (slider) {
+          if (+slider.value !== Math.round(ing.pct)) slider.value = Math.round(ing.pct);
+          slider.style.setProperty('--fill-pct', `${slider.value}%`);
+        }
+      });
+    }
+
+    function clamp(n, min, max) { return Math.max(min, Math.min(max, n)); }
+
+    function updateVisuals(item, recipe) {
+      const total = recipe.reduce((s, x) => s + x.pct, 0) || 100;
+      const basePct = clamp(((recipe[0]?.pct || 0) / total) * 100, 0, 100);
+      const mixPct = clamp(((recipe[1]?.pct || 0) / total) * 100, 0, 100);
+      
+      // Glass Visuals
+      els.layerBase.style.height = `${basePct}%`;
+      els.layerMixer.style.height = `${mixPct}%`;
+      
+      // Ice Handling
+      const iceLevel = els.iceInput.value;
+      els.glassWrap.className = `glass-wrap ice-level-${iceLevel}`;
+
+      // Metrics Logic
+      const isPureMenu = ['cervezas', 'sidras', 'shots'].includes(item.category);
+      let strength, sweetness, freshness;
+
+      if (isPureMenu) {
+        strength = item.category === 'shots' ? 85 : 15;
+        sweetness = item.category === 'sidras' ? 60 : 20;
+        freshness = item.category === 'cervezas' || item.category === 'sidras' ? 80 : 10;
+      } else {
+        strength = clamp(basePct * 0.9, 5, 95);
+        sweetness = clamp(100 - strength + (item.category === 'aperitivos' || item.category === 'licores' ? 30 : 0), 10, 90);
+        freshness = clamp(mixPct * 0.8 + (item.category === 'gin' ? 20 : 0), 10, 95);
+      }
+
+      els.txtFuerza.textContent = `${Math.round(strength)} / 100`;
+      els.txtDulzor.textContent = `${Math.round(sweetness)} / 100`;
+      els.txtFrescura.textContent = `${Math.round(freshness)} / 100`;
+      
+      els.barFuerza.style.width = `${strength}%`;
+      els.barDulzor.style.width = `${sweetness}%`;
+      els.barFrescura.style.width = `${freshness}%`;
+    }
+
+    function getLevelInfo(item, basePct, mixerPct, baseLabel, mixerLabel) {
+      const pureMenus = ['cervezas', 'sidras', 'cocteles', 'shots'];
+      const isPureMenu = pureMenus.includes(item.category) && mixerPct <= 5;
+
+      if (item.category === 'shots') return { badge: '🔴 Impacto Directo', text: 'Consumo sin dilución. Perfil de impacto alcohólico máximo y absorción rápida.', color: '#ef4444' };
+      if (isPureMenu) return { badge: '⚪ Formato Cerrado', text: 'Estructura lista para consumo. No requiere calibración volumétrica adicional.', color: '#a1a1aa' };
+
+      if (basePct <= 25) return { badge: '🟢 Perfil Ligero (Soft)', text: `Dilución alta. El diluyente (${mixerLabel}) enmascara la carga etílica, resultando en un trago de alta refrescancia.`, color: '#4ade80' };
+      if (basePct <= 40) return { badge: '🟡 Balance Óptimo', text: `Equilibrio estructural. La base etílica (${baseLabel}) mantiene su identidad organoléptica sin saturar el paladar.`, color: '#facc15' };
+      if (basePct <= 60) return { badge: '🟠 Perfil Intenso (Strong)', text: `Baja dilución. Notas alcohólicas predominantes. Recomendado para degustación lenta.`, color: '#fb923c' };
+      
+      return { badge: '🔴 Alta Concentración', text: `Riesgo de saturación. La base domina por completo la mezcla. Sugerido solo con abundante densidad térmica (hielo).`, color: '#ef4444' };
+    }
+
+    function updateReport(item, recipe) {
+      const total = recipe.reduce((s, x) => s + x.pct, 0) || 100;
+      const base = recipe[0] || {name:'Base', pct:50};
+      const mixer = recipe[1] || {name:'Mixer', pct:50};
+      
+      const baseLabel = els.brandSelect.value;
+      const mixerLabel = els.mixerSelect.value;
+      const vol = +els.volumeInput.value || 300;
+      
+      const baseMl = Math.round(vol * base.pct / total);
+      const mixerMl = Math.round(vol * mixer.pct / total);
+      const iceLabels = ['0%', '25%', '50%', '75%'];
+      const iceTxt = iceLabels[els.iceInput.value] || '0%';
+
+      // Report Update
+      let profileType = 'Ensamblado Estándar';
+      if (base.pct > 65) profileType = 'Short Drink (Concentrado)';
+      else if (mixer.pct > 65) profileType = 'Long Drink (Diluido)';
+
+      els.comboStatusTitle.innerHTML = `<i class="fa-solid fa-file-signature"></i> Reporte: ${profileType}`;
+      els.comboDescText.innerHTML = `Composición técnica: <b>${baseLabel}</b> + <b>${mixerLabel}</b>.<br>Distribución volumétrica: <b>${base.pct.toFixed(1)}%</b> / <b>${mixer.pct.toFixed(1)}%</b>. <br>Cantidades netas: <b>${baseMl}ml</b> base, <b>${mixerMl}ml</b> mixer. (Vol. Total: ${vol}ml, Hielo: ${iceTxt}).`;
+
+      // Level Analysis
+      const level = getLevelInfo(item, base.pct, mixer.pct, baseLabel, mixerLabel);
+      els.levelBadge.textContent = level.badge;
+      els.levelText.textContent = level.text;
+      els.levelCard.style.borderColor = level.color;
+      els.levelBadge.style.color = level.color;
+
+      // Smart Tip
+      const tipText = item.category === 'fernet' ? "La proporción 30/70 es el estándar rioplatense (Sistema Branca)." :
+                      item.category === 'gin' ? "A mayor porcentaje de base, mayor liberación de terpenos y notas botánicas." :
+                      "La dilución térmica (hielo) reducirá la percepción alcohólica y la temperatura a lo largo del tiempo.";
+      els.autoTip.textContent = tipText;
+    }
+
+    function closeModal() {
+      els.overlay.classList.remove('active');
+      document.body.style.overflow = '';
+      setTimeout(() => { currentItem = null; }, 300);
+    }
+
+    // Run
+    init();
+  </script>
+</body>
+</html>
